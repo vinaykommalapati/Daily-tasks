@@ -82,6 +82,15 @@
     <button class="tea-btn plus" onclick="changeTea(1)">+</button>
   </div>
 </div>
+<div class="tea-card">
+  <div class="tea-icon">💪</div>
+  <div class="tea-label">Pea Protein</div>
+  <div class="tea-controls">
+    <button class="tea-btn minus" onclick="changePea(-1)">−</button>
+    <div class="tea-count" id="peaCount">0</div>
+    <button class="tea-btn plus" onclick="changePea(1)">+</button>
+  </div>
+</div>
 <div class="reset-banner" id="resetBanner">
   <span>🌅 New day — reset all tasks?</span>
   <button class="reset-btn" onclick="resetForNewDay()">Reset</button>
@@ -102,8 +111,10 @@
   const STORAGE_KEY = 'daily_tasks_v2';
   const DATE_KEY = 'daily_tasks_date';
   const TEA_KEY = 'daily_tea_count';
+  const PEA_KEY = 'daily_pea_count';
   let tasks = [];
   let teaCount = 0;
+  let peaCount = 0;
 
   function todayStr() { return new Date().toDateString(); }
 
@@ -128,6 +139,17 @@
     document.getElementById('teaCount').textContent = teaCount;
   }
 
+  function loadPea() {
+    peaCount = parseInt(localStorage.getItem(PEA_KEY) || '0');
+    document.getElementById('peaCount').textContent = peaCount;
+  }
+
+  function changePea(d) {
+    peaCount = Math.max(0, peaCount + d);
+    localStorage.setItem(PEA_KEY, peaCount);
+    document.getElementById('peaCount').textContent = peaCount;
+  }
+
   function checkNewDay() {
     const d = localStorage.getItem(DATE_KEY);
     if (d && d !== todayStr() && tasks.length > 0)
@@ -139,6 +161,9 @@
     teaCount = 0;
     localStorage.setItem(TEA_KEY, 0);
     document.getElementById('teaCount').textContent = 0;
+    peaCount = 0;
+    localStorage.setItem(PEA_KEY, 0);
+    document.getElementById('peaCount').textContent = 0;
     save();
     document.getElementById('resetBanner').classList.remove('show');
     render();
@@ -210,7 +235,7 @@
   var now = new Date();
   document.getElementById('dateLabel').textContent = now.toLocaleDateString('en-IN', { weekday: 'long', month: 'long', day: 'numeric' });
 
-  load(); loadTea(); checkNewDay(); render();
+  load(); loadTea(); loadPea(); checkNewDay(); render();
 </script>
 </body>
 </html>
