@@ -12,81 +12,66 @@
     :root {
       --bg: #0f0f11; --surface: #1a1a1f; --border: #2a2a32;
       --accent: #7c6ff7; --accent-dim: #7c6ff720; --text: #e8e8f0;
-      --muted: #6b6b7e; --done-text: #444455; --green: #4ade80;
-      --red: #f87171; --radius: 14px;
+      --muted: #6b6b7e; --done-text: #444455; --red: #f87171;
+      --radius: 14px;
       --font: -apple-system, 'SF Pro Display', BlinkMacSystemFont, sans-serif;
     }
     body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; min-height: -webkit-fill-available; padding-bottom: env(safe-area-inset-bottom); }
-    .header { padding: 56px 20px 20px; background: var(--bg); position: sticky; top: 0; z-index: 10; border-bottom: 1px solid var(--border); }
-    .header-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; }
+    .header { padding: 56px 20px 16px; background: var(--bg); position: sticky; top: 0; z-index: 10; border-bottom: 1px solid var(--border); }
     .date-label { font-size: 12px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
-    .page-title { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; color: var(--text); }
-    .progress-wrap { margin-top: 14px; }
+    .page-title { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; color: var(--text); margin-bottom: 14px; }
     .progress-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
     .progress-label { font-size: 12px; color: var(--muted); }
     .progress-count { font-size: 12px; font-weight: 600; color: var(--accent); }
     .progress-bar { height: 4px; background: var(--border); border-radius: 99px; overflow: hidden; }
     .progress-fill { height: 100%; background: var(--accent); border-radius: 99px; transition: width 0.4s ease; }
+    .tea-card { margin: 12px 16px 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; display: flex; align-items: center; gap: 12px; }
+    .tea-icon { font-size: 22px; flex-shrink: 0; }
+    .tea-label { flex: 1; font-size: 15px; color: var(--text); }
+    .tea-controls { display: flex; align-items: center; gap: 12px; }
+    .tea-count { font-size: 22px; font-weight: 700; color: var(--text); min-width: 28px; text-align: center; }
+    .tea-btn { width: 38px; height: 38px; border-radius: 11px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 500; line-height: 1; flex-shrink: 0; }
+    .tea-btn:active { opacity: 0.6; }
+    .tea-btn.plus { background: var(--accent); color: #fff; }
+    .tea-btn.minus { background: var(--border); color: var(--muted); }
     .reset-banner { background: var(--accent-dim); border: 1px solid var(--accent); border-radius: var(--radius); padding: 12px 16px; margin: 12px 16px 0; display: none; justify-content: space-between; align-items: center; }
     .reset-banner.show { display: flex; }
     .reset-banner span { font-size: 13px; color: var(--accent); }
     .reset-btn { font-size: 12px; font-weight: 600; color: var(--accent); background: none; border: 1px solid var(--accent); border-radius: 8px; padding: 5px 12px; cursor: pointer; }
     .task-list { padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; }
     .section-label { font-size: 11px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 4px 4px; }
-    .task-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); display: flex; align-items: center; padding: 14px; gap: 12px; cursor: pointer; transition: border-color 0.2s, opacity 0.2s; user-select: none; position: relative; }
-    .task-item:active { opacity: 0.7; }
-    .task-item.done { border-color: #2a2a32; background: #14141a; }
+    .task-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); display: flex; align-items: center; padding: 14px; gap: 12px; user-select: none; }
+    .task-item.done { background: #14141a; }
     .task-item.done .task-text { color: var(--done-text); text-decoration: line-through; }
-    .checkbox { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+    .checkbox { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.2s; cursor: pointer; }
     .task-item.done .checkbox { background: var(--accent); border-color: var(--accent); }
     .checkbox svg { opacity: 0; transition: opacity 0.2s; }
     .task-item.done .checkbox svg { opacity: 1; }
-    .task-text { flex: 1; font-size: 15px; color: var(--text); line-height: 1.4; }
-    .delete-btn { width: 28px; height: 28px; border-radius: 8px; background: none; border: none; color: var(--muted); cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s, color 0.2s; padding: 0; }
-    .task-item:hover .delete-btn, .task-item.show-delete .delete-btn { opacity: 1; }
-    .delete-btn:active { color: var(--red); opacity: 1; }
+    .task-text { flex: 1; font-size: 15px; color: var(--text); line-height: 1.4; cursor: pointer; }
+    .delete-btn { width: 32px; height: 32px; border-radius: 8px; background: #2a2a32; border: none; color: var(--muted); cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; padding: 0; }
+    .delete-btn:active { background: #3a1a1a; color: var(--red); }
     .add-area { position: fixed; bottom: 0; left: 0; right: 0; padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); background: var(--bg); border-top: 1px solid var(--border); }
     .add-row { display: flex; gap: 10px; align-items: center; }
     .add-input { flex: 1; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 13px 16px; font-size: 15px; color: var(--text); font-family: var(--font); outline: none; transition: border-color 0.2s; }
     .add-input::placeholder { color: var(--muted); }
     .add-input:focus { border-color: var(--accent); }
-    .add-btn { width: 46px; height: 46px; background: var(--accent); border: none; border-radius: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: opacity 0.15s; }
+    .add-btn { width: 48px; height: 48px; background: var(--accent); border: none; border-radius: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .add-btn:active { opacity: 0.8; }
     .empty-state { text-align: center; padding: 60px 20px; color: var(--muted); }
     .empty-icon { font-size: 40px; margin-bottom: 12px; }
     .empty-text { font-size: 15px; }
-    .spacer { height: 100px; }
-    .tea-card { margin: 12px 16px 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; display: flex; align-items: center; gap: 12px; }
-    .tea-icon { font-size: 20px; flex-shrink: 0; }
-    .tea-label { flex: 1; font-size: 15px; color: var(--text); }
-    .tea-controls { display: flex; align-items: center; gap: 10px; }
-    .tea-count { font-size: 20px; font-weight: 700; color: var(--text); min-width: 24px; text-align: center; }
-    .tea-btn { width: 34px; height: 34px; border-radius: 10px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 600; transition: opacity 0.15s; flex-shrink: 0; }
-    .tea-btn:active { opacity: 0.7; }
-    .tea-btn.plus { background: #7c6ff720; color: var(--accent); }
-    .tea-btn.minus { background: #2a2a32; color: var(--muted); }
-    .install-hint { margin: 12px 16px 0; padding: 10px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; font-size: 12px; color: var(--muted); text-align: center; display: none; }
-    .install-hint.show { display: block; }
+    .spacer { height: 90px; }
   </style>
 </head>
 <body>
 <div class="header">
-  <div class="header-top"><div>
-    <div class="date-label" id="dateLabel"></div>
-    <div class="page-title">Today's Tasks</div>
-  </div></div>
-  <div class="progress-wrap">
-    <div class="progress-row">
-      <span class="progress-label">Progress</span>
-      <span class="progress-count" id="progressCount">0 / 0</span>
-    </div>
-    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  <div class="date-label" id="dateLabel"></div>
+  <div class="page-title">Today's Tasks</div>
+  <div class="progress-row">
+    <span class="progress-label">Progress</span>
+    <span class="progress-count" id="progressCount">0 / 0</span>
   </div>
-</div>
-<div class="install-hint" id="installHint">📱 Share → "Add to Home Screen" to install as app</div>
-<div class="reset-banner" id="resetBanner">
-  <span>🌅 New day — reset all tasks?</span>
-  <button class="reset-btn" onclick="resetForNewDay()">Reset</button>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
 </div>
 <div class="tea-card">
   <div class="tea-icon">🍵</div>
@@ -96,6 +81,10 @@
     <div class="tea-count" id="teaCount">0</div>
     <button class="tea-btn plus" onclick="changeTea(1)">+</button>
   </div>
+</div>
+<div class="reset-banner" id="resetBanner">
+  <span>🌅 New day — reset all tasks?</span>
+  <button class="reset-btn" onclick="resetForNewDay()">Reset</button>
 </div>
 <div class="task-list" id="taskList"></div>
 <div class="spacer"></div>
@@ -110,35 +99,118 @@
   </div>
 </div>
 <script>
-  const STORAGE_KEY='daily_tasks_v2',DATE_KEY='daily_tasks_date',TEA_KEY='daily_tea_count';
-  let tasks=[],teaCount=0;
-  function loadTea(){teaCount=parseInt(localStorage.getItem(TEA_KEY)||'0');document.getElementById('teaCount').textContent=teaCount;}
-  function changeTea(d){teaCount=Math.max(0,teaCount+d);localStorage.setItem(TEA_KEY,teaCount);document.getElementById('teaCount').textContent=teaCount;}
-  function todayStr(){return new Date().toDateString();}
-  function load(){try{const r=localStorage.getItem(STORAGE_KEY);tasks=r?JSON.parse(r)[];}catch{tasks=[];}}
-  function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(tasks));localStorage.setItem(DATE_KEY,todayStr());}
-  function checkNewDay(){const d=localStorage.getItem(DATE_KEY);if(d&&d!==todayStr()&&tasks.length>0)document.getElementById('resetBanner').classList.add('show');}
-  function resetForNewDay(){tasks=tasks.map(t=>({...t,done:false}));teaCount=0;localStorage.setItem(TEA_KEY,0);document.getElementById('teaCount').textContent=0;save();document.getElementById('resetBanner').classList.remove('show');render();}
-  function addTask(){const i=document.getElementById('addInput'),t=i.value.trim();if(!t)return;tasks.push({id:Date.now(),text:t,done:false});save();render();i.value='';i.focus();}
-  function toggleTask(id){tasks=tasks.map(t=>t.id===id?{...t,done:!t.done}:t);save();render();}
-  function deleteTask(id){tasks=tasks.filter(t=>t.id!==id);save();render();}
-  function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-  function render(){
-    const list=document.getElementById('taskList'),pending=tasks.filter(t=>!t.done),done=tasks.filter(t=>t.done),total=tasks.length,dc=done.length;
-    document.getElementById('progressCount').textContent=`${dc} / ${total}`;
-    document.getElementById('progressFill').style.width=total?`${(dc/total)*100}%`:'0%';
-    if(total===0){list.innerHTML='<div class="empty-state"><div class="empty-icon">✅</div><div class="empty-text">No tasks yet — add your first one below</div></div>';return;}
-    let h='';
-    if(pending.length>0){h+=`<div class="section-label">To Do (${pending.length})</div>`;pending.forEach(t=>{h+=tHTML(t);});}
-    if(done.length>0){h+=`<div class="section-label" style="margin-top:8px">Done (${done.length})</div>`;done.forEach(t=>{h+=tHTML(t);});}
-    list.innerHTML=h;
+  const STORAGE_KEY = 'daily_tasks_v2';
+  const DATE_KEY = 'daily_tasks_date';
+  const TEA_KEY = 'daily_tea_count';
+  let tasks = [];
+  let teaCount = 0;
+
+  function todayStr() { return new Date().toDateString(); }
+
+  function load() {
+    try { const r = localStorage.getItem(STORAGE_KEY); tasks = r ? JSON.parse(r) : []; }
+    catch { tasks = []; }
   }
-  function tHTML(t){return`<div class="task-item ${t.done?'done':''}" onclick="toggleTask(${t.id})"><div class="checkbox"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg></div><div class="task-text">${escHtml(t.text)}</div><button class="delete-btn" onclick="event.stopPropagation();deleteTask(${t.id})"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>`;}
-  document.getElementById('addInput').addEventListener('keydown',e=>{if(e.key==='Enter')addTask();});
-  if(window.navigator.standalone===false)document.getElementById('installHint').classList.add('show');
-  load();loadTea();
-  const now=new Date();document.getElementById('dateLabel').textContent=now.toLocaleDateString('en-IN',{weekday:'long',month:'long',day:'numeric'});
-  checkNewDay();render();
+
+  function save() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+    localStorage.setItem(DATE_KEY, todayStr());
+  }
+
+  function loadTea() {
+    teaCount = parseInt(localStorage.getItem(TEA_KEY) || '0');
+    document.getElementById('teaCount').textContent = teaCount;
+  }
+
+  function changeTea(d) {
+    teaCount = Math.max(0, teaCount + d);
+    localStorage.setItem(TEA_KEY, teaCount);
+    document.getElementById('teaCount').textContent = teaCount;
+  }
+
+  function checkNewDay() {
+    const d = localStorage.getItem(DATE_KEY);
+    if (d && d !== todayStr() && tasks.length > 0)
+      document.getElementById('resetBanner').classList.add('show');
+  }
+
+  function resetForNewDay() {
+    tasks = tasks.map(t => ({ ...t, done: false }));
+    teaCount = 0;
+    localStorage.setItem(TEA_KEY, 0);
+    document.getElementById('teaCount').textContent = 0;
+    save();
+    document.getElementById('resetBanner').classList.remove('show');
+    render();
+  }
+
+  function addTask() {
+    const input = document.getElementById('addInput');
+    const text = input.value.trim();
+    if (!text) return;
+    tasks.push({ id: Date.now(), text, done: false });
+    save(); render();
+    input.value = '';
+    input.focus();
+  }
+
+  function toggleTask(id) {
+    tasks = tasks.map(t => t.id === id ? { ...t, done: !t.done } : t);
+    save(); render();
+  }
+
+  function deleteTask(id) {
+    tasks = tasks.filter(t => t.id !== id);
+    save(); render();
+  }
+
+  function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function render() {
+    const list = document.getElementById('taskList');
+    const pending = tasks.filter(t => !t.done);
+    const done = tasks.filter(t => t.done);
+    const total = tasks.length;
+    const dc = done.length;
+    document.getElementById('progressCount').textContent = dc + ' / ' + total;
+    document.getElementById('progressFill').style.width = total ? ((dc / total) * 100) + '%' : '0%';
+    if (total === 0) {
+      list.innerHTML = '<div class="empty-state"><div class="empty-icon">✅</div><div class="empty-text">No tasks yet — add your first one below</div></div>';
+      return;
+    }
+    let h = '';
+    if (pending.length > 0) {
+      h += '<div class="section-label">To Do (' + pending.length + ')</div>';
+      pending.forEach(function(t) { h += taskHTML(t); });
+    }
+    if (done.length > 0) {
+      h += '<div class="section-label" style="margin-top:8px">Done (' + done.length + ')</div>';
+      done.forEach(function(t) { h += taskHTML(t); });
+    }
+    list.innerHTML = h;
+  }
+
+  function taskHTML(t) {
+    return '<div class="task-item ' + (t.done ? 'done' : '') + '">' +
+      '<div class="checkbox" onclick="toggleTask(' + t.id + ')">' +
+        '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg>' +
+      '</div>' +
+      '<div class="task-text" onclick="toggleTask(' + t.id + ')">' + escHtml(t.text) + '</div>' +
+      '<button class="delete-btn" onclick="deleteTask(' + t.id + ')">' +
+        '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>' +
+      '</button></div>';
+  }
+
+  document.getElementById('addInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') addTask();
+  });
+
+  var now = new Date();
+  document.getElementById('dateLabel').textContent = now.toLocaleDateString('en-IN', { weekday: 'long', month: 'long', day: 'numeric' });
+
+  load(); loadTea(); checkNewDay(); render();
 </script>
 </body>
 </html>
