@@ -12,19 +12,26 @@
     :root {
       --bg: #0f0f11; --surface: #1a1a1f; --border: #2a2a32;
       --accent: #7c6ff7; --accent-dim: #7c6ff720; --text: #e8e8f0;
-      --muted: #6b6b7e; --done-text: #444455; --red: #f87171;
+      --muted: #6b6b7e; --done-text: #444455; --red: #f87171; --green: #4ade80;
       --radius: 14px;
       --font: -apple-system, 'SF Pro Display', BlinkMacSystemFont, sans-serif;
     }
     body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; min-height: -webkit-fill-available; padding-bottom: env(safe-area-inset-bottom); }
+
+    /* HEADER */
     .header { padding: 56px 20px 16px; background: var(--bg); position: sticky; top: 0; z-index: 10; border-bottom: 1px solid var(--border); }
+    .header-row { display: flex; justify-content: space-between; align-items: flex-start; }
     .date-label { font-size: 12px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
     .page-title { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; color: var(--text); margin-bottom: 14px; }
+    .profile-btn { width: 38px; height: 38px; border-radius: 50%; background: var(--accent); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 20px; }
+    .profile-btn svg { display: block; }
     .progress-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
     .progress-label { font-size: 12px; color: var(--muted); }
     .progress-count { font-size: 12px; font-weight: 600; color: var(--accent); }
     .progress-bar { height: 4px; background: var(--border); border-radius: 99px; overflow: hidden; }
     .progress-fill { height: 100%; background: var(--accent); border-radius: 99px; transition: width 0.4s ease; }
+
+    /* COUNTERS */
     .tea-card { margin: 12px 16px 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; display: flex; align-items: center; gap: 12px; }
     .tea-icon { font-size: 22px; flex-shrink: 0; }
     .tea-label { flex: 1; font-size: 15px; color: var(--text); }
@@ -34,10 +41,14 @@
     .tea-btn:active { opacity: 0.6; }
     .tea-btn.plus { background: var(--accent); color: #fff; }
     .tea-btn.minus { background: var(--border); color: var(--muted); }
+
+    /* RESET BANNER */
     .reset-banner { background: var(--accent-dim); border: 1px solid var(--accent); border-radius: var(--radius); padding: 12px 16px; margin: 12px 16px 0; display: none; justify-content: space-between; align-items: center; }
     .reset-banner.show { display: flex; }
     .reset-banner span { font-size: 13px; color: var(--accent); }
     .reset-btn { font-size: 12px; font-weight: 600; color: var(--accent); background: none; border: 1px solid var(--accent); border-radius: 8px; padding: 5px 12px; cursor: pointer; }
+
+    /* TASK LIST */
     .task-list { padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; }
     .section-label { font-size: 11px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 4px 4px; }
     .task-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); display: flex; align-items: center; padding: 14px; gap: 12px; user-select: none; }
@@ -50,6 +61,8 @@
     .task-text { flex: 1; font-size: 15px; color: var(--text); line-height: 1.4; cursor: pointer; }
     .delete-btn { width: 32px; height: 32px; border-radius: 8px; background: #2a2a32; border: none; color: var(--muted); cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; padding: 0; }
     .delete-btn:active { background: #3a1a1a; color: var(--red); }
+
+    /* ADD AREA */
     .add-area { position: fixed; bottom: 0; left: 0; right: 0; padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); background: var(--bg); border-top: 1px solid var(--border); }
     .add-row { display: flex; gap: 10px; align-items: center; }
     .add-input { flex: 1; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 13px 16px; font-size: 15px; color: var(--text); font-family: var(--font); outline: none; transition: border-color 0.2s; }
@@ -61,18 +74,77 @@
     .empty-icon { font-size: 40px; margin-bottom: 12px; }
     .empty-text { font-size: 15px; }
     .spacer { height: 90px; }
+
+    /* OVERLAY / DRAWER */
+    .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 100; display: none; }
+    .overlay.show { display: block; }
+    .drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 100%; max-width: 100%; background: var(--bg); z-index: 101; transform: translateX(100%); transition: transform 0.3s ease; overflow-y: auto; padding-bottom: env(safe-area-inset-bottom); }
+    .drawer.show { transform: translateX(0); }
+
+    /* DRAWER HEADER */
+    .drawer-header { padding: 56px 20px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 14px; }
+    .drawer-avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .drawer-avatar svg { display: block; }
+    .drawer-name { font-size: 20px; font-weight: 700; color: var(--text); }
+    .drawer-sub { font-size: 13px; color: var(--muted); margin-top: 2px; }
+    .close-btn { margin-left: auto; width: 34px; height: 34px; border-radius: 50%; background: var(--surface); border: none; color: var(--muted); cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+    /* CALENDAR */
+    .cal-section { padding: 20px 16px 0; }
+    .cal-title { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; }
+    .cal-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+    .cal-month { font-size: 17px; font-weight: 600; color: var(--text); }
+    .cal-nav-btn { width: 32px; height: 32px; border-radius: 8px; background: var(--surface); border: 1px solid var(--border); color: var(--text); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+    .cal-day-name { font-size: 11px; color: var(--muted); text-align: center; padding: 4px 0; }
+    .cal-day { height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 14px; color: var(--muted); cursor: pointer; position: relative; transition: background 0.15s; }
+    .cal-day.has-data { color: var(--text); }
+    .cal-day.has-data::after { content: ''; position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%); width: 4px; height: 4px; border-radius: 50%; background: var(--accent); }
+    .cal-day.today { background: var(--accent-dim); color: var(--accent); font-weight: 700; }
+    .cal-day.selected { background: var(--accent); color: #fff; font-weight: 700; }
+    .cal-day.selected::after { background: #fff; }
+    .cal-day.empty { pointer-events: none; }
+    .cal-day:active { opacity: 0.7; }
+
+    /* DAY DETAIL */
+    .day-detail { margin: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; display: none; }
+    .day-detail.show { display: block; }
+    .day-detail-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 12px; }
+    .day-stat-row { display: flex; gap: 10px; margin-bottom: 12px; }
+    .day-stat { flex: 1; background: var(--bg); border-radius: 10px; padding: 10px; text-align: center; }
+    .day-stat-val { font-size: 20px; font-weight: 700; color: var(--accent); }
+    .day-stat-lbl { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .day-task-item { font-size: 14px; color: var(--text); padding: 8px 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+    .day-task-item:last-child { border-bottom: none; }
+    .day-task-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .day-task-dot.done { background: var(--green); }
+    .day-task-dot.pending { background: var(--border); }
+    .day-empty { font-size: 14px; color: var(--muted); text-align: center; padding: 20px 0; }
   </style>
 </head>
 <body>
+
+<!-- MAIN HEADER -->
 <div class="header">
-  <div class="date-label" id="dateLabel"></div>
-  <div class="page-title">Today's Tasks</div>
+  <div class="header-row">
+    <div>
+      <div class="date-label" id="dateLabel"></div>
+      <div class="page-title">Today's Tasks</div>
+    </div>
+    <button class="profile-btn" onclick="openDrawer()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+      </svg>
+    </button>
+  </div>
   <div class="progress-row">
     <span class="progress-label">Progress</span>
     <span class="progress-count" id="progressCount">0 / 0</span>
   </div>
   <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
 </div>
+
+<!-- COUNTERS -->
 <div class="tea-card">
   <div class="tea-icon">🍵</div>
   <div class="tea-label">Tea today</div>
@@ -91,12 +163,17 @@
     <button class="tea-btn plus" onclick="changePea(1)">+</button>
   </div>
 </div>
+
+<!-- RESET BANNER -->
 <div class="reset-banner" id="resetBanner">
   <span>🌅 New day — reset all tasks?</span>
   <button class="reset-btn" onclick="resetForNewDay()">Reset</button>
 </div>
+
 <div class="task-list" id="taskList"></div>
 <div class="spacer"></div>
+
+<!-- ADD AREA -->
 <div class="add-area">
   <div class="add-row">
     <input class="add-input" id="addInput" type="text" placeholder="Add a task..." maxlength="120" />
@@ -107,135 +184,261 @@
     </button>
   </div>
 </div>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay" onclick="closeDrawer()"></div>
+
+<!-- PROFILE DRAWER -->
+<div class="drawer" id="drawer">
+  <div class="drawer-header">
+    <div class="drawer-avatar">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+      </svg>
+    </div>
+    <div>
+      <div class="drawer-name">Vinay</div>
+      <div class="drawer-sub" id="drawerSub">Loading stats...</div>
+    </div>
+    <button class="close-btn" onclick="closeDrawer()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="cal-section">
+    <div class="cal-title">Activity Calendar</div>
+    <div class="cal-nav">
+      <button class="cal-nav-btn" onclick="changeMonth(-1)">‹</button>
+      <div class="cal-month" id="calMonth"></div>
+      <button class="cal-nav-btn" onclick="changeMonth(1)">›</button>
+    </div>
+    <div class="cal-grid" id="calGrid"></div>
+  </div>
+
+  <div class="day-detail" id="dayDetail">
+    <div class="day-detail-title" id="dayDetailTitle"></div>
+    <div class="day-stat-row">
+      <div class="day-stat">
+        <div class="day-stat-val" id="dsTasks">0</div>
+        <div class="day-stat-lbl">Tasks done</div>
+      </div>
+      <div class="day-stat">
+        <div class="day-stat-val" id="dsTea">0</div>
+        <div class="day-stat-lbl">☕ Tea</div>
+      </div>
+      <div class="day-stat">
+        <div class="day-stat-val" id="dsPea">0</div>
+        <div class="day-stat-lbl">💪 Protein</div>
+      </div>
+    </div>
+    <div id="dsTaskList"></div>
+  </div>
+</div>
+
 <script>
   const STORAGE_KEY = 'daily_tasks_v2';
   const DATE_KEY = 'daily_tasks_date';
   const TEA_KEY = 'daily_tea_count';
   const PEA_KEY = 'daily_pea_count';
+  const HISTORY_KEY = 'daily_history';
+
   let tasks = [];
   let teaCount = 0;
   let peaCount = 0;
+  let calYear, calMonth;
 
+  // ── DATE ──
   function todayStr() { return new Date().toDateString(); }
+  function dateKey(d) {
+    // "YYYY-MM-DD"
+    var y = d.getFullYear(), m = String(d.getMonth()+1).padStart(2,'0'), day = String(d.getDate()).padStart(2,'0');
+    return y+'-'+m+'-'+day;
+  }
+  function todayKey() { return dateKey(new Date()); }
 
-  function load() {
-    try { const r = localStorage.getItem(STORAGE_KEY); tasks = r ? JSON.parse(r) : []; }
-    catch { tasks = []; }
+  // ── HISTORY ──
+  function loadHistory() {
+    try { return JSON.parse(localStorage.getItem(HISTORY_KEY) || '{}'); }
+    catch { return {}; }
+  }
+  function saveSnapshot() {
+    var hist = loadHistory();
+    hist[todayKey()] = {
+      tasks: tasks,
+      tea: teaCount,
+      pea: peaCount
+    };
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(hist));
   }
 
+  // ── TASKS ──
+  function load() {
+    try { var r = localStorage.getItem(STORAGE_KEY); tasks = r ? JSON.parse(r) : []; }
+    catch { tasks = []; }
+  }
   function save() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
     localStorage.setItem(DATE_KEY, todayStr());
+    saveSnapshot();
   }
 
-  function loadTea() {
-    teaCount = parseInt(localStorage.getItem(TEA_KEY) || '0');
-    document.getElementById('teaCount').textContent = teaCount;
-  }
+  // ── TEA / PEA ──
+  function loadTea() { teaCount = parseInt(localStorage.getItem(TEA_KEY)||'0'); document.getElementById('teaCount').textContent = teaCount; }
+  function changeTea(d) { teaCount = Math.max(0,teaCount+d); localStorage.setItem(TEA_KEY,teaCount); document.getElementById('teaCount').textContent = teaCount; saveSnapshot(); }
+  function loadPea() { peaCount = parseInt(localStorage.getItem(PEA_KEY)||'0'); document.getElementById('peaCount').textContent = peaCount; }
+  function changePea(d) { peaCount = Math.max(0,peaCount+d); localStorage.setItem(PEA_KEY,peaCount); document.getElementById('peaCount').textContent = peaCount; saveSnapshot(); }
 
-  function changeTea(d) {
-    teaCount = Math.max(0, teaCount + d);
-    localStorage.setItem(TEA_KEY, teaCount);
-    document.getElementById('teaCount').textContent = teaCount;
-  }
-
-  function loadPea() {
-    peaCount = parseInt(localStorage.getItem(PEA_KEY) || '0');
-    document.getElementById('peaCount').textContent = peaCount;
-  }
-
-  function changePea(d) {
-    peaCount = Math.max(0, peaCount + d);
-    localStorage.setItem(PEA_KEY, peaCount);
-    document.getElementById('peaCount').textContent = peaCount;
-  }
-
+  // ── NEW DAY ──
   function checkNewDay() {
-    const d = localStorage.getItem(DATE_KEY);
+    var d = localStorage.getItem(DATE_KEY);
     if (d && d !== todayStr() && tasks.length > 0)
       document.getElementById('resetBanner').classList.add('show');
   }
-
   function resetForNewDay() {
-    tasks = tasks.map(t => ({ ...t, done: false }));
-    teaCount = 0;
-    localStorage.setItem(TEA_KEY, 0);
-    document.getElementById('teaCount').textContent = 0;
-    peaCount = 0;
-    localStorage.setItem(PEA_KEY, 0);
-    document.getElementById('peaCount').textContent = 0;
+    tasks = tasks.map(function(t){ return Object.assign({},t,{done:false}); });
+    teaCount = 0; localStorage.setItem(TEA_KEY,0); document.getElementById('teaCount').textContent = 0;
+    peaCount = 0; localStorage.setItem(PEA_KEY,0); document.getElementById('peaCount').textContent = 0;
     save();
     document.getElementById('resetBanner').classList.remove('show');
     render();
   }
 
+  // ── TASKS CRUD ──
   function addTask() {
-    const input = document.getElementById('addInput');
-    const text = input.value.trim();
+    var input = document.getElementById('addInput'), text = input.value.trim();
     if (!text) return;
-    tasks.push({ id: Date.now(), text, done: false });
-    save(); render();
-    input.value = '';
-    input.focus();
+    tasks.push({id: Date.now(), text: text, done: false});
+    save(); render(); input.value = ''; input.focus();
   }
-
   function toggleTask(id) {
-    tasks = tasks.map(t => t.id === id ? { ...t, done: !t.done } : t);
+    tasks = tasks.map(function(t){ return t.id===id ? Object.assign({},t,{done:!t.done}) : t; });
     save(); render();
   }
-
   function deleteTask(id) {
-    tasks = tasks.filter(t => t.id !== id);
+    tasks = tasks.filter(function(t){ return t.id!==id; });
     save(); render();
   }
 
-  function escHtml(s) {
-    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  }
+  function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
+  // ── RENDER ──
   function render() {
-    const list = document.getElementById('taskList');
-    const pending = tasks.filter(t => !t.done);
-    const done = tasks.filter(t => t.done);
-    const total = tasks.length;
-    const dc = done.length;
-    document.getElementById('progressCount').textContent = dc + ' / ' + total;
-    document.getElementById('progressFill').style.width = total ? ((dc / total) * 100) + '%' : '0%';
-    if (total === 0) {
-      list.innerHTML = '<div class="empty-state"><div class="empty-icon">✅</div><div class="empty-text">No tasks yet — add your first one below</div></div>';
-      return;
-    }
-    let h = '';
-    if (pending.length > 0) {
-      h += '<div class="section-label">To Do (' + pending.length + ')</div>';
-      pending.forEach(function(t) { h += taskHTML(t); });
-    }
-    if (done.length > 0) {
-      h += '<div class="section-label" style="margin-top:8px">Done (' + done.length + ')</div>';
-      done.forEach(function(t) { h += taskHTML(t); });
-    }
+    var list = document.getElementById('taskList');
+    var pending = tasks.filter(function(t){return !t.done;}), done = tasks.filter(function(t){return t.done;});
+    var total = tasks.length, dc = done.length;
+    document.getElementById('progressCount').textContent = dc+' / '+total;
+    document.getElementById('progressFill').style.width = total ? ((dc/total)*100)+'%' : '0%';
+    if (total===0) { list.innerHTML='<div class="empty-state"><div class="empty-icon">✅</div><div class="empty-text">No tasks yet — add your first one below</div></div>'; return; }
+    var h='';
+    if (pending.length>0) { h+='<div class="section-label">To Do ('+pending.length+')</div>'; pending.forEach(function(t){h+=taskHTML(t);}); }
+    if (done.length>0) { h+='<div class="section-label" style="margin-top:8px">Done ('+done.length+')</div>'; done.forEach(function(t){h+=taskHTML(t);}); }
     list.innerHTML = h;
   }
-
   function taskHTML(t) {
-    return '<div class="task-item ' + (t.done ? 'done' : '') + '">' +
-      '<div class="checkbox" onclick="toggleTask(' + t.id + ')">' +
-        '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg>' +
-      '</div>' +
-      '<div class="task-text" onclick="toggleTask(' + t.id + ')">' + escHtml(t.text) + '</div>' +
-      '<button class="delete-btn" onclick="deleteTask(' + t.id + ')">' +
-        '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>' +
-      '</button></div>';
+    return '<div class="task-item'+(t.done?' done':'')+'">'+
+      '<div class="checkbox" onclick="toggleTask('+t.id+')"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6 5,9 10,3"/></svg></div>'+
+      '<div class="task-text" onclick="toggleTask('+t.id+')">'+escHtml(t.text)+'</div>'+
+      '<button class="delete-btn" onclick="deleteTask('+t.id+')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>'+
+      '</div>';
   }
 
-  document.getElementById('addInput').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') addTask();
-  });
+  // ── DRAWER ──
+  function openDrawer() {
+    document.getElementById('overlay').classList.add('show');
+    document.getElementById('drawer').classList.add('show');
+    updateDrawerStats();
+    var now = new Date(); calYear = now.getFullYear(); calMonth = now.getMonth();
+    renderCal();
+  }
+  function closeDrawer() {
+    document.getElementById('overlay').classList.remove('show');
+    document.getElementById('drawer').classList.remove('show');
+    document.getElementById('dayDetail').classList.remove('show');
+  }
 
+  function updateDrawerStats() {
+    var hist = loadHistory();
+    var days = Object.keys(hist).length;
+    var totalDone = 0;
+    Object.values(hist).forEach(function(d){ totalDone += (d.tasks||[]).filter(function(t){return t.done;}).length; });
+    document.getElementById('drawerSub').textContent = days + ' days tracked · ' + totalDone + ' tasks completed';
+  }
+
+  // ── CALENDAR ──
+  var DAYS = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+  var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+  function changeMonth(d) { calMonth += d; if (calMonth>11){calMonth=0;calYear++;} if (calMonth<0){calMonth=11;calYear--;} renderCal(); }
+
+  function renderCal() {
+    document.getElementById('calMonth').textContent = MONTHS[calMonth]+' '+calYear;
+    var hist = loadHistory();
+    var now = new Date(), todayK = todayKey();
+    var firstDay = new Date(calYear, calMonth, 1).getDay();
+    var daysInMonth = new Date(calYear, calMonth+1, 0).getDate();
+    var html = '';
+    DAYS.forEach(function(d){ html += '<div class="cal-day-name">'+d+'</div>'; });
+    for (var i=0;i<firstDay;i++) html += '<div class="cal-day empty"></div>';
+    for (var d=1;d<=daysInMonth;d++) {
+      var k = calYear+'-'+String(calMonth+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+      var isToday = k===todayK;
+      var hasData = !!hist[k];
+      var cls = 'cal-day'+(isToday?' today':'')+(hasData?' has-data':'');
+      html += '<div class="'+cls+'" onclick="selectDay(\''+k+'\','+d+')">'+d+'</div>';
+    }
+    document.getElementById('calGrid').innerHTML = html;
+  }
+
+  function selectDay(key, d) {
+    // highlight selected
+    document.querySelectorAll('.cal-day').forEach(function(el){ el.classList.remove('selected'); });
+    event.target.classList.add('selected');
+
+    var hist = loadHistory();
+    var detail = document.getElementById('dayDetail');
+    detail.classList.add('show');
+
+    var label = MONTHS[calMonth]+' '+d+', '+calYear;
+    document.getElementById('dayDetailTitle').textContent = label;
+
+    // if it's today, use live data
+    var data = key === todayKey() ? {tasks:tasks,tea:teaCount,pea:peaCount} : (hist[key]||null);
+
+    if (!data) {
+      document.getElementById('dsTasks').textContent = '—';
+      document.getElementById('dsTea').textContent = '—';
+      document.getElementById('dsPea').textContent = '—';
+      document.getElementById('dsTaskList').innerHTML = '<div class="day-empty">No data for this day</div>';
+      return;
+    }
+
+    var doneTasks = (data.tasks||[]).filter(function(t){return t.done;}).length;
+    document.getElementById('dsTasks').textContent = doneTasks+' / '+(data.tasks||[]).length;
+    document.getElementById('dsTea').textContent = data.tea||0;
+    document.getElementById('dsPea').textContent = data.pea||0;
+
+    if (!data.tasks || data.tasks.length===0) {
+      document.getElementById('dsTaskList').innerHTML = '<div class="day-empty">No tasks recorded</div>';
+      return;
+    }
+    var th = '';
+    data.tasks.forEach(function(t){
+      th += '<div class="day-task-item"><div class="day-task-dot '+(t.done?'done':'pending')+'"></div>'+escHtml(t.text)+'</div>';
+    });
+    document.getElementById('dsTaskList').innerHTML = th;
+
+    // scroll to detail
+    setTimeout(function(){ detail.scrollIntoView({behavior:'smooth', block:'nearest'}); }, 100);
+  }
+
+  // ── INIT ──
+  document.getElementById('addInput').addEventListener('keydown', function(e){ if(e.key==='Enter') addTask(); });
   var now = new Date();
-  document.getElementById('dateLabel').textContent = now.toLocaleDateString('en-IN', { weekday: 'long', month: 'long', day: 'numeric' });
-
+  document.getElementById('dateLabel').textContent = now.toLocaleDateString('en-IN',{weekday:'long',month:'long',day:'numeric'});
   load(); loadTea(); loadPea(); checkNewDay(); render();
+  saveSnapshot(); // save today on open
 </script>
 </body>
 </html>
